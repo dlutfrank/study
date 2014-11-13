@@ -1,0 +1,30 @@
+#+TITLE: mac learn
+
+* 常用 快捷键
+
+Ctrl + Shift + Power 关闭屏幕
+
+Command + Shift + H 打开Home目录
+
+Command + Shfit + C 打开根目录
+
+
+* bash操作
+  pbcopy 剪贴板
+  pwd | pdcopy 将当前目录发送到剪贴板
+
+  find ~/.emacs.d/ "*.el" -exec grep -H "(require 'assoc)" {} \;
+  找出.emacs.d目录下.el文件中所有包含指定内容的文件
+  
+
+* 开机启动
+** Login Items
+System Preferences -> Accounts -> Login Items
+
+** Startup Items
+先找到LaunchAgents的目录：/Library/LaunchAgents
+删掉下面的不需要的自启动项
+比如com.sougou.SougouServices.plist
+
+一些系统级别的可以到/System/Library/StartupItems去清理
+
