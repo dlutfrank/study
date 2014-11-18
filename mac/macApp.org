@@ -1,0 +1,60 @@
+# -*-org-*-
+#+TITLE: Mac App Dev
+#+AUTHOR: dlut.xing@gmail.com
+#+OPTIONS: toc:2
+* XCode shortcuts
+
+Command + Ctrl + J  jump to definition
+Command + Click     open head file
+
+Command + Ctrl + <- jump back
+Command + Shift + 0 open document
+
+Option + Click      quick help
+
+* Objective-c
+** send message
+function call = send message
+
+function call : class function call and instance function call
+** quick 
+for (NSString s : as)
+
+** setter and getter
+@property 
+
+@synthesize
+
+@property float height;
+@property float weight;
+= @synthesize height,weight;
+
+* Get Started
+
+The call to the NSApplicationMain function creates an instance of the
+NSApplication class and an instance of the AppDelegate class, which is
+provided for you by the Cocoa Application template. In this tutorial,
+the singleton instance of this class is referred to as the app
+delegate. The main job of the app delegate is to provide a window you
+can access through its window property. The window object provides a
+container for the app’s visible content and helps deliver events to
+other app objects. The app delegate can also perform some app
+configuration tasks before the app is displayed. You add your custom
+behavior and logic to the AppDelegate class and any other classes you
+create.
+
+The instance of the NSApplication class, called the app object, loads
+the main nib file when the app launches. Nib files are an archive of
+UI elements and other objects. The main nib file, MainMenu.xib,
+usually contains the parts of your user interface, such as the menu
+bar and window, that are visible the entire time your app is
+running. When a nib file is loaded, the objects it contains are
+instantiated.
+
++ An instance of AppDelegate (a dark blue cube), set to be the app
+object’s delegate
+
+When the app object has completed its setup, it
+sends its delegate an applicationDidFinishLaunching: message. This
+message gives the delegate an opportunity to configure the user
+interface and perform other tasks before the app is displayed.
