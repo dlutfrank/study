@@ -33,3 +33,19 @@ System Preferences -> Accounts -> Login Items
 
 一些系统级别的可以到/System/Library/StartupItems去清理
 
+
+* ios开发的开源库
+
+** 网络
+
+网络请求首选AFNetworking,解析json数据推荐JSONKit, Reachability,
+EGOTableViewPullRefresh, LoadMoreTableFooterView.
+
+** 本地存储
+FMDB, Core Data, SDWebImage, TMCache
+
+** 动画效果
+
+MBProgressHUD
+pop
+
