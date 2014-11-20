@@ -1,0 +1,644 @@
+#+STARTAU: overview
+#+TITLE: *Learn Emacs*
+#+AUTHOR: swx
+#+EMAIL: dlut.xing@gmail.com
+#+KEYWORDS: emacs, basic
+#+TAGS: { 桌面(d) 服务器(s) } 编辑器(e) 浏览器(c) 多媒体(m) 压缩(z)
+#+TAGS: { @Windows(w) @Linux(l) }
+#+TAGS: { 糟糕(1) 凑合(2) 不错(3) 很好(4) 极品(5) }
+#+SEQ_TODO: TODO(T) WAIT(W) | DONE(D!) CANCELED(C@) 
+#+COLUMNS: %10ITEM %10PRIORITY %15TODO %65TAGS
+#+OPTIONSa: toc:2
+* emacs能做什么
+写文档(Latext)\\
+写程序(C/C++)\\
+写博客(org-mode + o-blog)\\
+写日记(org-mode:capture + Archive+refile)\\
+读文档(info +woman)\\
+* 查看文档
+C-h v 查看变量的值和文档
+C-h f 查看函数的文档
+M-x describe-face 查看face文档
+C-h m 查看某个mode的文档
+C-h k 查看某快捷键对应的命令，一般用于检测配置快捷键是否生效
+C-h w 查看某个命令对应的快捷键
+C-h b 查看当前buffer中以某个快捷键开头的快捷键列表，
+C-c C-h查看当前buffer中所有以C-c开头的快捷键列表(C-x C-h为查看C-x开头的快捷键列表)
+find-function 查看函数源代码
+* 执行Elisp代码
+在某条语句后面按下C-x C-e(eval-last-sexp)可以执行那条语句
+
+M-x eval-buffer 可以执行当前buffer中的Elisp代码
+
+选中一个region后，用M-x eval-region可以执行这个region内的代码
+* 环境搭建
+不显示菜单栏等
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(scroll-bar-mode 0)
+
+* 修改Emacs配置文件立即生效
+重启Emacs或者在~./emacs文件的缓冲区中执行命令M-x eval-buffer便可是配置文件立即生效
+* 修改配置文件位置
+在Windows下是无法手动建立.emacs文件的，你可以打开emacs然后在Options下随便
+挑个选项比如：Paren Match Highlighting然后点Save Options
+你就可以看到下面的提示
+Wrote c:/Documents and Settings/Administrator/Application Data/.emacs
+这时已经生成.emacs文件了。
+为了以后可以反复使用配置和插件，我们需要改变插件导入路径，在C:\Documents 
+and Settings\Administrator\Application Data\.emacs添加下面代码
+
+'(load-file "D:\emacs-23.3\.emacs");;要在第一行且单独一行
+然后在D:\emacs-23.3文件下建立配置文件.emacs，写入下面的代码。
+
+;;改变默认路径
+(setenv "HOME" "D:/workspace/emacs-23.3")
+(setenv "PATH" "D:/workspace/emacs-23.3")
+;;set the default file path
+(setq default-directory "~/")
+
+最后在D:/emacs-23.3下建立文件夹ConFile，把插件(默认插件在lisp文件夹里)都扔进去，
+比如说display-line-number.el
+在.emacs中写入下面的代码。
+
+;;显示行号
+(load-file "~/ConFile/display-line-number.el")
+(require 'display-line-number)
+(global-display-line-number-mode t)
+
+Emacs23可以不用插件显示行号
+在配置.emacs文件中加上
+(global-linum-mode t)
+或者m-x  global-linum-mode回车(m-x就是Alt+x)
+就可以显示行号，而且在用了tabbar插件的情况下，这种方式不会出现差一行的错误.
+
+(setq case-fold-search nil);;查找的时候就强制匹配大小写t,nil
+(setq case-replace  nil);;强制大小写自动替换
+
+* 编译.el文件
+** 编译整个目录
+C-u 0 M-x byte-recompile-directory
+** 编译单个文件
+进入cmd
+emacs -batch -f batch-byte-compile *.el
+编译文件
+byte-compile-file
+emacs 打开该文件之后直接M-x byte-compile-file，选中该文件
+* 插件的安装
+** 安装插件
+插件一般都以el为后缀的文件，把这个文件下载后放到一个目录里，然后执行下面语句即可。
+(add-to-list 'load-path "~/site-lisp/")
+(require 'pluginName);;eg (reguire 'redo+)
+** 定制快捷键
+定制全局的快捷键
+(global-set-key key command)
+eg. (global-set-key (kbd "C-c C-x") 'save-file)
+绑定完毕后可以用C-h k C-c C-x 来检测C-c C-x 绑定是否成功
+
+如果想对特定的模式比如C++mode进行快捷键定制，用define-key即可
+(define-key c++-mode (kbd "C-j") 'goto-line)
+define-key 第一个参数map一般为mode后面直接加-mode
+* 显示图片
+** 开启图片模式
+(auto-image-file-mode t) 
+
+不能显示有可能是缺少dll文件，使用命令C-h v image-library-alist查看emacs所需要的dll，然后去下载缺少的dll
+地址:[[http://gnuwin32.sourceforge.net/packages.html][GnuWin32]]
+下载完后，放在~/bin目录下面，重新启动emacs
+* Emacs 与文本编辑
+* 基本信息
+** 打开／新建文件						   :Openfile:
+打开 Emacs 后，我们做的第一件事，往往是打开一个（新）文件进行操作。在Emacs中，打
+开文件的快捷键是C-x f。需要注意的是，Emacs并不像普通的文本编辑器那样，区分打开现
+有文件和新建文件，而是依据这样的规则：
+
+打开文件时，实际上是在Emacs中打开一个同名的缓冲区（buffer）。如果硬盘上存在这个文
+件，就把其内容读入缓冲区。保存时，如果该文件不存在，就新建一个，否则覆盖。前面我
+们提到了缓冲区。这是一种重要的概念，不过暂时我们可以把它视为Emacs中管理的一块数据
+内容。通常它会对应可见的文本编辑区。实际上，我们可以直接新建一个不对应任何文件的
+缓冲区，后面我
+** 关闭缓冲区
+
+当然，直接把Emacs关掉，你就关掉了所有的缓冲区。不过，我们通常需要的是关掉当前的缓
+冲区。它的快捷键是 C-x k。需要注意的是，如果缓中区有未保存的数据，会提示你，注意
+看提示：）。
+
+** 保存文件
+
+保存文件的快捷键是 C-x s。如果需要另存到一个指定的文件，使用C-x w。
+
+** 文本编辑的基本操作
+
+会有一些教材告诉你一些很神奇的快捷键，比如C-p是光标上移什么的。它们为Emacs提供了
+最大可能的兼容性。即使一些紧凑的，只有82键的键盘上，熟练用户也可以使用自如。如果
+你在这样的环境下工作，不妨学习一下这类快捷键。
+
+然而，实话说，这些快捷键我从来没有背下来过。对于我这样使用101键盘的用户，就直接使
+用方向键、翻页键这样的标准键来移动光标好了。删除之类的也一样。
+
+然而还是有几个有用的快捷键值得记忆一下：
+
+C-k 是删除光标向右直至行尾的内容，我惊讶的发现这个操作居然比我想象的常用的多。
+C-del 是向右删除至单词末尾，对于中文，它是删除子句。C-s 会进入搜索模式，后面我们
+会讨论一下搜索相关的操作。所有被删除的内容会进入一个称为删除环的地方，按C-y就可以
+把它粘贴到光标所在的位置，如果想要取再前一次的删除数据，就在C-y之后（不要做其它操
+作！）继续按M-y，重复按M-y可以遍历整个删除环。复制是 M-w，剪切是C-w，粘贴是C-y，
+切记！C加左或右，可以整单词（或中文子句）跳转，Emacs有一整套完整的文本跳转快捷键，
+我也只记住了这么一个。C-t 交换光标所在字符及其前一个字符的位置。说真的，我对这个
+快捷键很怨念，这得多么大的手才能一手按住这两个键啊……实事证明，两个字符写反了，
+是非常常见的事情，这样功能非常实用，生生就被这个组合快捷键给废了……对于程序员，
+另有几个快捷键非常值得一记：
+
+TAB，在编码使用的各种程序语言mode中，通常tab都是按设定的缩进格式对齐当前行。M-/，
+代码自动完成。黑夜的自动完成并不算强，只是搜索当前已经出现过的子句，但是非常实用。
+C-M-\，对当前选区重排，这个功能也经常会用到。特别提一下M-x，这个组合是打开emacs最
+下面的mini-buffer。然后你可以在里面输入一行命令。通常这个命令就是一个emacs函数。
+一般写做M-x command，意思就是按下Alt-x，然后输入command，回车。*
+** 文本块的选取
+
+通常我们在文本编辑器中都可以按住shift移动光标来选取文本，但是在emacs中不行。
+emacs使用一个称为“锚点”的概念。当你按下M-@时，就设定了一个锚点，光标和锚点之间，
+即为选取区域。只要不点击鼠标，不重设锚点，这个选取区就会一直随你的光标而变。
+
+矩形剪切是C-x r k，矩形粘贴是C-x r y。矩形复制还没有找到：）
+
+** 常见用法
+*加粗* 加粗
+
+/倾斜/ 倾斜
+
+_下划线_ 下划线
+
++删除线+
+
+下标 H_2 O
+
+上标 E=mc^2
+* emacs org-mode
+** 对org-mode进行配置
+对.emacs文件进行配置
+(seq org-hide-leading-stars t);;只高亮最后一个代表层级的*
+  (define-key global-map "\C-ca" 'org-agenda)
+  (setq org-log-done 'time);;给已完成事项打上时间戳。可选note，附加注释
+
+对org文件进行配置 ;;文件配置内容可以随时更改，但是要使用C-c C-c 刷新设置
+;;#+STARTAU: overview ;;启动时概览
+;;#+TAGS: {桌面(d)服务器(s)} 编辑器(e) 浏览器(c) 多媒体(m) 压缩(z) ;;设定标签，括弧中的标签为快捷键(如果没有指定，默认为首字母)。可设置在多行中
+;;#+TAGS: {@Windows (w) @Linux(l)}  ;;花括号为标签组，只能选取一个标签
+;;#+TAGS: {糟糕(1) 凑合(2) 不错(3) 很好(4) 极品(5)} 
+;;#+SEQ_TODO: TODO(T) WAIT(W) | DONE(D!) CANCELED(C@) ;;设置待办状态。将项设置为|后面的状态时，会打上CLOSED志标
+;;#+COLUMNS: %10ITEM %10PRIORITY %15TODO %65TAGS ;;设定列视图
+
+** 大纲显示方式
+临时切换为另一种模式为M-x org-indent-mode
+可以在头文件增加#+STARTUP: indent,如果希望打开所有的org文件都默认用这种方式，可
+以在.emacs文件中配置(setq org-startup-indent t)
+
+** 标签切换
+TAB 全部显示，全部隐藏，显示标签之间切换 
+S-TAB 对所有标签进行切换
+C-c C-f/b/n/p 标签之间移动
+C-c C-u 移动到上一级标签
+C-c C-j 跳转到任意标签
+
+** 对分支结构进行修改
+
+C-RET 增加同级项
+M-left/right 将当前项升级/降级 
+MS-left/right 将整个分支升级/降级 包含所有的子分支
+C-c C-x M-w 复制当前分支
+C-c C-x C-y 粘贴分支
+C-c C-x C-k 删除当前分支
+C-c C-x C-w 剪切当前分支
+
+*** 分支修改测试
+只是一个测试
+
+*** 分支修改测试
+只是一个测试
+
+** 标签使用
+C-c C-c 选择标签，子项默认继承父类标签
+C-c \
+C-c / T 搜索标签
+C-u C-c \ 搜索带有TODO的标签
+a+b搜索同事有a和b标签
+a-b搜索有a但是没有b标签
+a|b搜索有a或者有b标签
+*** 测试用标签
+*** Vim								  :桌面:编辑器:很好:
+**** Vim mode							     :@Linux:
+
+** 事件
+*** 定义
+事件默认有两种状态"TODO" "DONE" 
+C-c C-t 切换事件状态
+MS-RET新建事件
+;;#+SEQ_TODO: TODO(T) WAIT(W) | DONE(D!) CANCELED(C@)  
+;;|分隔完成与未完成状态，完成的会打上CLOSED的时间戳，括号内为快捷键
+;;!打上时间戳，@要求说明
+
+;;#+COLUMNS: %10ITEM %10PRIORITY %15TODO %65TAGS
+
+也可以在配置文件中设置全局的事件状态
+(setq org-ttodo-keywords
+    '((sequence "TODO" "|" "DONE" "CANCEL")
+      (sequence "REPORT" "BUG" "KNOWNCAUSE" "|" "FIXED")
+     ))
+
+
+  *** 操作
+C-u C-c C-t 手动输入TODO状态，如果设定快捷键则使用快捷键输入
+S-right/left 循环切换TODO状态
+C-c C-v 查询视图
+C-c /t 查询视图
+C-c a t 全局TODO列表
+
+*** TODO [#B] 
+    - State "DONE"       from "WAIT"       [2014-08-15 周五 18:32]
+    - State "CANCELED"   from "DONE"       [2014-08-15 周五 18:32]
+    - State "DONE"       from "WAIT"       [2014-08-15 周五 18:32]
+
+*** TODO some thing should do
+
+** 日程表
+
+在Emacs配置文件.emacs定义日程表快捷键
+(define-key global-map "\C-ca" 'org-agenda)
+C-c [ 将当前文件加入日程表， C-c a
+C-c ] 将当前文件从日程表中移除
+C-c C-x < 锁定到当前树(只显示当前树的事件）
+C-c C-x >解除锁定
+
+*** 事件优先级
+abc三种优先级，使用C-c手动设定级，使用S-up和S-down进行调整
+
+*** 时间
+    DEADLINE: <2014-08-16 周六> 
+    SCHEDULED: <2014-08-15 周五>
+C-c C-d 设定截止日期，C-c C-s 设定计划
+C-c .在当前位置插入时间戳
+C-u C-c .更加精确的时间点
+C-c !插入时间戳，不在日程表中显示
+<2014-08-15 周五 19:51>
+<2014-08-15 周五>
+C-c <直接插入时间戳（当前日期）
+C-c >查看日历
+C-c C-o 访问当前时间戳的日程表
+S-left|S-right	以天为单位调整时间戳时间
+S-up|S-down	调整光标所在时间单位；如果光标在时间戳之外，调整时间戳类型（是否在日程表中显示）
+C-c C-y	计算时间范围长度
+
+C-c C-x C-c 进入列视图，按q退出
+;;#+COLUMNS: %10ITEM %10PRIORITY %15TODO %65TAGS
+百分数表示该列站的宽度，PRIORITY优先级，TODO表示时间状态，TAGS表示标签
+C-c C-x C-c进列视图
+r|g刷新
+q退出
+left|right在列间移动
+S-left|S-right n|p 改变当前列的值
+v查看当前值  
+
+** 结构化编辑
+各级标题分别用不同数目的*来区分，一级标题用一个，两级用两个，依次类推。
+
+枚举(unordered list)和有序列表(ordered list)以及带描述符的列表
+
+枚举可以用'-','+',或者非行首的'*'作为bullets。同时，可以用开头的空格来区分枚举的层次结构。
++ 枚举1
++ 枚举2
+- 枚举3
+- 枚举4
+  枚举5
+
+** Insert link
+*** 外部链接
+[[http://www.baidu.com][百度]]
+[[http://www.baidu.com]]
+[[http://www.sina.com][新浪]]
+[[mailto:shenwenxing@xiaomi.com][Send to me]]
+mailto:dlut.xing@gmail.com
+
+C-c C-l 创建或者修改链接
+C-c C-o 打开链接
+
+| C-c % | 记录内部链接地址       |
+| C-c & | 跳转到已记录的内部链接 |
+  
+如果需要修改链接，在链接后面按下backspace
+
+#+BEGIN_QUOTE
+Everything should be made as simple as possible,
+but not any simpler -- Albert Einstein
+#+END_QUOTE
+
++OPTIONS toc:2 生成目录,只显示2级标题.
++OPTIONS toc:nil 表示无目录
+*** 内部链接
+定义描点 #<<my-anchor>>
+[[my_anchor][内部链接]]
+#<<my-anchor>>
+脚注可以看做是一种特殊的内部链接，但是要求具有"fn:"前缀
+添加脚注链接[[fn:footprint1][脚注1]]
+定义脚注[fn:footprint1]
+
+** 文本居中
+#+BEGIN_CENTER
+Everything should be made as simple as possible, \\
+but not any simpler
+#+END_CENTER
+
+** 插入图片
+#+CAPTION: This is the caption for the next figure link (or table)
+#+LABEL: fig:Chonglou
+[[d:/chonglou.jpg]]
+[[./simpleDot.png][simpleDot]]
+
+#+begin_src plantuml :file somefile.png
+Alice -> Bob: Request
+Bob -> Alice: Response
+#+end_src
+
+#+RESULTS:
+[[file:somefile.png]]
+
+#+begin_src plantuml :file clientServer.png
+title Authenticate Sequence Diagram
+autonumber
+activate "wifi client"
+"wifi client" -> "wifi server" : (id,password)
+activate "wifi server"
+"wifi server" -> "kuaipan server" : (id,password)
+activate "kuaipan server"
+"kuaipan server" -> "wifi server" : token
+deactivate "kuaipan server"
+"wifi server" -> "wifi client" : token
+deactivate "wifi server"
+"wifi client" -> "third party" : set-cookie(token)
+deactivate "wifi client"
+activate "third party"
+== third party authen==
+"third party" -> "wifi server" : token
+activate "wifi server"
+"wifi server" -> "kuaipan server" : token
+activate "kuaipan server"
+"kuaipan server" -> "wifi server" : new token
+deactivate "kuaipan server"
+"wifi server" -> "third party" : new token
+deactivate "wifi server"
+deactivate "third party"
+#+end_src
+
+ #+RESULTS:
+ [[file:clientServer.png]]
+
+** 插入源代码
+
+#+BEGIN_SRC dot :file test_graphviz.png :cmdline -Kdot -Tpng
+digraph edge_settings {
+    edge [color = "green", decorate = false]        //设置边的默认属性
+    node [shape = "polygon", sides = 4, color = "blue"]
+    a -> b [style = "dotted", color = "red", label = "a to b"]  //设置style、color、label
+    b: se -> c: w [headlabel = "end",  taillabel = "start"]     //设置边从b的“东南方”出发，从c的“西方”结束，设置有向边起点和重点的label
+    edge [style = "bond", decorate = true]      //设置之后的边加粗并且标签和连线之间有线标注
+    {c, f} -> {d, e} [label = "multi-lines"]    //可以用这种方式同时画多条边
+}
+#+END_SRC        
+** 写blog
+** 插入LaTex代码到文件中
+#+begin_src org
+\begin{equation}
+\x=\sqrt{b}
+\end{equation}
+#+end_src
+
+F(x)=\int_0^1 {\color{\red}f(x)} \, \textrm{d}x
+
+** 插入表格
+任何以"|"为首的非空字符行都会被认为是表格的一部分，输入表头，按C-c RET就可以生成整个表格
+TAB 为横向移动，S-TAB为移动到上一项，RET为纵向移动到下一项
+*** 编辑行和列
+| 快捷键        | 说明                           |
+|---------------+--------------------------------|
+| M-left/right  | 移动列                         |
+| M-up/down     | 移动行                         |
+| MS-left/right | 删除/插入列                    |
+| MS-up/down    | 删除/插入行                    |
+| C-c -         | 添加水平分割线                 |
+| C-c RET       | 添加水平分割线，并跳转到下一行 |
+| C-c ^         | 根据当前列排序，可以选择排序方式               | 
+
+** 列表
+** 排版源码
+#+begin_src c -n -h 7 -w 40
+int main(){
+ printf("hello world!\n");
+ return 0;
+}
+#+end_src
+
+-n 为显示行号
+-t 清除格式
+-h 设置高度
+-w 设置宽度
+
+** 插入时间戳
+<2014-08-12 周二>
+* emacs 插件
+** 插件安装
+emacs -batch -l d:\workspace\eamcs-23.3\.emacs.d\plugins\tabbar.el
+Install to: d:\worksapce\emacs-23.3\.emacs.d\tabbar
+tabbar 为子目录。
+
+添加配置文件
+(add-to-list 'load-path "d:\workspace...")
+(require 'tabbar)
+ 
+* emacs 中的文件和目录操作
+** 进入Dired模式
+
+1. 在终端中：输入emacs 和给定目录名
+
+     >>>emacs dirname
+
+     >>>emacs dirname & ;;#表示在后台运行，此时你还可以使用该终端做其他事情
+
+2. 在Emacs中：
+
+C-x C-f dirname ;;打开一个目录
+
+C-x d ;;也就是绑定到下面这个函数
+
+M-x dired
+
+说明：进入dired后的命令大多是一个字符，比如键入s表示对类别按照时间排序，键入m表示对该文件进行标记，所以下面如果类别一个字符那说明只按那个键就可以了；如果后面有";;"则表示是对该命令的解释（;;是elisp注释语句)
+
+** 查看和编辑文件
+
+1. 对文件类别进行排序
+
+s ;;按照时间排序，排在最上面的是最新修改的文件
+
+2. 移动光标
+
+SPACE C-n n ;;向下
+
+DEL C-p p ;;向上
+
+ENTER ;;进入子目录
+
+     对..回车 ;;回到父目录, ..不是表示上级目录嘛
+
+;;当然,Emacs中的基本移动操作照样可行，比如C-a C-e C-b C-f M-f等等
+
+3. 查看文件内容
+
+     v ;;(dired-view-file),只读模式
+
+     进入查看模式(view-mode)后可以：
+
+          按下'C-c'或'q'健返回;
+
+按下's'健递增查找;
+
+          按下回车进入下一页
+
+          按下'='返回所在行
+
+4. 编辑文件
+
+     f ;;进入文本编辑模式
+
+     要退出可以用以下方法：
+
+C-x k;;kill buffer
+
+C-x b;;换到上一个buffer
+
+C-x C-b ;;查看所有buffer，选择进入
+
+** 文件的删除、复制、重命名操作，压缩与解压缩，比较
+
+d ;;加上待删除标记
+
+u ;;取消待删除标记,其实也可取消其他标记
+
+x ;;删除标记的所有文件
+
+;# ;;给所有自动保存文件加上待删除标记
+
+~;;给所有备份文件加上待删除标记
+
+D ;;大D立即删除指定文件
+
+C ;;大C用于复制该文件到一个目录中
+
+2 C;;复制该光标以及后面一个文件
+
+R ;;重命名文件，也可用于移动文件
+
+Z ;;(dired-do-compress)压缩与解压缩
+
+= ;;比较改文件与另一个待会输入的文件，类同于UNIX中的diff命令
+
+** 在文件上运行UNIX命令
+
+移动文件上并按"!"建
+
+** 对文件组进行操作
+
+m ;;标记文件
+
+%m ;;使用正则标记
+
++ ;;(dired-create-directory),创建目录
+
+基本操作就是这些，很多应用大多可以通过组合上面的操作来完成。
+
+比如像给目录下的所有以py为后缀的文件移动到一个新的文件夹（目录）中可以：
+
+首先创建一个目录
+
++
+
+python
+
+然后选取所有以py为结尾的文件
+
+%m
+
+.py$
+
+最后移动这些标记的文件
+
+R
+
+python
+* emacs使用过程中遇到的问题
+
+plantuml在org模式下无法运行，可能原因有
+
+** 缺少jar文件
+去[[http://plantuml.sourceforge.net/download.html][home page]]下载最新plantuml的jar文件
+
+** org-mode下没有关联language
+
+ #+begin_src emacs-lisp :tangle yes
+;; active Org-babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(;; other Babel languages
+   (plantuml . t)))
+;;set org-plantuml-jar-path
+(setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/lib/plantuml.jar"))
+ #+end_src
+
+** PATH里面没有java路径
+win7下面的PATH和emacs里面的PATH可能不是同一个东西，可以在emacs的shell里
+面查看一下环境变量和win下面的环境变量进行对比。
+添加环境变量
+#+begin_src emacs-lisp :tangle yes
+  (setenv "PATH" (concat "C:/Programe
+  Files/Java/jdk1.8.0_05/bin;C:/Program
+  Files/Java/jdk1.8.0_05/jre/bin;" (getenv "PATH")))
+#+end_src
+
+** MacBook Terminal 中使用Emacs的Meta键问题
+在Terminal中，默认是无法使用Meta键的，可以打开终端的Preference(快捷键command+,)
+，然后选择Keyboard，勾选"Use Option As Meta Key"就可以讲alt键当做Meta键进行使用了。
+** emacs中的区域选择
+之前一直的按键是M-@选择的时候，总是从下一个词开始，偶然之间看到标记的快
+捷键为C-@，终于知道为什么以前标记的时候会出现问题了。
+
+选择一行的快捷键，可以用C-a,C-k,C-y来代替。
+
+全选的快捷键为C-x h,全选的标记在文档的最后，而光标在文档的最前面，和前
+面的标记相反，可以使用C-x C-x来交换标记。
+
+C-x C-p 为选择整页
+
+M-h可以选取一段
+
+M-@可以选择一个词，继续按可以继续往下选择。
+* 文件操作
+C-x C-v 打开一个文件，取代当前缓冲区，不能用C-x b跳转到上个缓冲区了
+C-x i   插入文件，在当前文件中插入新的文件内容
+* 编辑操作
+C-x C-q 切换为只读或者读写状态
+M-g g   跳转到指定行，M-x goto-line的快捷键
+CM-f    向前匹配括号
+CM-b    向后匹配括号
+M-n     重复操作随后的命令n次
+C-u n   
+M-h     选择一段
+C-x C-p 选择一页
+C-x C-u 将区域中字母切换为大写
+C-x h   全选
+
+* Elisp学习
+** hooks
+hook 是一个变量，存着一系列函数，当buffer加载的时候，就会调用hook中保存的变量
+
+
+
+

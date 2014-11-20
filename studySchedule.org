@@ -1,0 +1,54 @@
+#+TITLE: 学习计划
+#+AUTHOR: dlut.xing@gmail.com
+
+* 学习的内容
+** 研究优秀开源项目
+** 设计模式
+** 熟悉数据库
+
+* 开源项目学习
+** 怎样找到适合自己的项目
+我觉得是这样的，你在自己的项目中要用到什么开源项目，挑选到合适的就去学
+习它，包括从文档、例子、单元测试、源码等。然后fork，按需要进行修改、优
+化。更好的是和该项目有交流，例如submit issue、pull request等。
+
+
+** github中怎么参与项目
++ 找到感兴趣的项目
++ 读代码
++ 发现可以改进的地方
++ fork
++ 修改代码，添加测试
++ pull request
++ 作者merge你的commit
++ 继续读代码
+
+
+** 参与项目注意事项
+贡献代码无外乎三种目的：
++ 加feature
++ 修bug
++ 重构
+加feature之前要寻找相关文档，一般会有文档说明design goal & concept，什
+么样的feature才能接受，如果不确定，总是先提交issue或者直接联系原作者讨
+论。Bug的来源，自己发现的，别人提交的issue，但总是要先提交issue并告知你
+已经着手在做，避免没必要的重复劳动，同理，你也应该先确认有没有人已经在
+做。重构是在不变更功能的情况下，改变代码架构，一般diff的足迹都较大，一
+定要注意沟通。
+
+最重要的是，一定要先看看commit log、pull request list和issue list，如果
+项目管理者万年没更新、不merge、不回应，就绝对不要去浪费这个时间。
+
+对于新手对自己能力没把握就先自己做吧，git版本控制流程、协作流程都不熟，
+merge conflict都没解决过就不要给人添乱了。寻找那种有插件、扩展机制的项
+目，先尝试贡献插件，上手难度低，易出成果。
+
+
+** 在github上搭建blog
+http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html
+
+
+** 好的文章
+借助开源项目，学习软件开发
+
+https://github.com/zhuangbiaowei/learn-with-open-source

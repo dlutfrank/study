@@ -1,0 +1,364 @@
+1、windows查找文件 
+dir *.txt /s
+2、linux查找文件
+find -name xxx
+
+3、curl post 文件到server
+curl -F "file=@c:/a.txt" -F "target=/userdisk/data/torrent" http://192.168.31.1/upload
+curl -F "file=@c:/a.txt" -F "target=/userdisk/data/torrent" http://192.168.123.1:49156/upload
+
+4、IntelliJ快捷键
+Alt  + F7 查找引用
+Ctrl + Shift + F 全局搜索
+Ctrl + Shift + N 查找文件
+Ctrl + Alt + 右键 回到上次浏览位置
+Ctrl + Alt + B 跳转到接口实现
+Ctrl + B 查找声明
+Ctrl + Q 方法信息
+Ctrl + Shift + Space 自动补全码代
+Ctrl + 空格 代码提示
+Ctrl + Shift + Alt + N 查找类中的方法或变量
+Ctrl + F12 列出类中的所有方法
+Ctrl + F4 关闭当前标签页
+Ctrl + Y 删除当前行
+Ctrl + E 列出最近修改的文件
+Ctrl + W 依次选中词，整行
+
+
+5、adb的命令
+adb root  adb以管理员运行
+adb pull /data/data/com.xiaomi.mishare/databases/downloads.db  拉取downloads.db到本地
+adb -d shell 打开usb直连机器的shell
+adb devices  list of devices attached
+adb -s serialNum shell 打开serialNum对应的shell
+
+6、github命令
+git clone https://github.com/dlutfrank/Spoon-knife.git //clone a repository from remote
+git remote -v //see the current configured remote repository
+git remote add upstream https://github.com/octocat/Spoon-knife.git  //add upstream
+git checkout master //switch to master branch
+git fetch upstream //fetch from upstream
+git merge upstream/master //merge with remote
+
+git commit --amend -m "New commit message" // amending the commit message
+
+
+7、统计文件的行数
+type .\*.cpp,.\*.h | find /c /v ""
+/v ""代表不为空行
+/c ""统计行数
+
+
+8、chrome快捷键
+C-t       打开新标签
+CS-t      恢复上次打开的标签
+C-N       打开新的窗口
+C-o       打开电脑上的文件
+C-1、2    打开数字对应的标签
+C-tab     切换标签
+CS-tab    切换到上一个标签
+C-w或C-F4 关闭当前标签页或者弹出式窗口（只有一个标签页的时候会关闭标签页）
+C-H       打开历史记录
+CS-b      打开书签管理器
+C-j				打开下载管理器
+CE-				地址栏中自动补齐www和.com
+C-d				将当前网页加入书签
+C-l或M-d  定位到地址栏
+C-k或C-e  将？置于地址栏中，输入关键字能使用默认浏览器搜索
+C-s	  重新加载
+ME-	  在新的标签页打开地址，从地址栏或搜索栏
+C-u	  打开源代码
+
+
+9、windows快捷键
+win-d			显示桌面
+win-e			打开计算机
+win-up			最大化窗口
+win-down		最小化窗口或者还原窗口
+menu			菜单键（右键菜单）
+F2			文件重命名
+ipconfig /displaydns	显示dns缓存
+ipconfig /flushdns 	清空dns缓存
+
+10、VAssistX的快捷键
+M-o			在.cpp和.h文件之间跳转
+M-g			同go按钮
+MS-o			打开搜索文件对话框
+M-m			打开类成员列表
+
+
+10、emacs
+C-x 5 0			Close current Frame
+C-x 5 2                 Open new Frame
+M-f                     Forward a word, not char(different from C-f)
+M-b			Back a word, not char(different from C-b)
+C-a			将光标移动到行首
+C-e			将光标移动到行尾
+M-a			将光标移动到句首
+M-e			将光标移动到句尾
+M-<			将光标移动到文档开头
+M->			将光标移动到文档结尾
+C-u			给下一个命令指定参数（如C-u 4 C-f 将光标向前移动四个字符）
+C-d			删除(delete)光标后的字符
+M-d			移除(kill)光标后的词,M-Del为移除光标前的词
+C-k			移除光标到行尾的字符
+M-k			移除光标到句尾的字符
+CS-backspace		删除整行
+C-/			undo
+C-_			undo
+C-x u			undo
+
+
+
+M-g g 			按行号跳转
+M-g M-g			按字符跳转
+
+C-@			开始标记,可以使用C-n等来移动光标选中内容,然后按C-w为移除选中所有内容
+C-y			召回上次移除(kill)的内容
+C-x u 			撤销上次的操作
+
+M-x customize-vaiable <RET> make-backup-files <RET>  关掉文件备份
+
+C-x C-b 	      	列出缓冲区
+C-x b fileName		切换到fileName文件
+C-x s 			保存所有文件缓冲
+C-x C-w			文件另存为
+M-w			复制到缓冲区
+
+C-x 			字符扩展。C-x之后输入另一个字符或者组合键
+M-x			命令名扩展。M-x之后输入另一个命令名
+C-x 1			关掉其他窗口，只留下一个窗口
+C-\			退出拼符
+
+M-x repl TAB s TAB RET changed RET altered RET  将changed替换为altered
+
+M-x recover file RET   	恢复未保存的文件，改文件以#开始，以#结尾。
+
+M-x text mode RET	切换模式（Fundamental,org,text）
+M-x auto fill mode RET  启动自动折行模式
+C-x f	      	   	设置自动折行的字符数
+C-x C-r 		以只读模式打开文件
+C-x i			插入文件
+M-q 			手动折行
+C-s,C-r			搜索,s向前搜索
+C-u 0 C-l		将光标所处行移动到屏幕顶端
+C-x 2 			分另个窗格
+CM-v			下面窗格向下滚动
+CMS-v			下面窗格向上滚动
+C-x o			将光标移动到其他窗格
+C-x 4 C-f		在另一个窗口中打开文件
+C-h c C-p		查看命令C-p的帮助
+C-h k C-p		查看命令C-p的详细帮助
+C-h f 			解释一个函数。需要输入函数名(eg. C-h f previous-line RET)
+C-h a			相关命令搜索(eg. C-h a file RET搜索file有关的命令)
+C-h i 			阅读联机手册,若要读emacs的使用手册,则使用m emacs<RET>即可
+C-h v 			变量说明
+C-h w			查找键绑定
+
+C-t 			交换光标所在字符与前一个字符的位置（用于写错单词之后交换）alt
+
+M-/			代码自动完成
+CM-\			对当前选取重排
+C-c C-l 		编辑超级链接或者[[link][description]] 或者[[link]]
+C-c C-o			打开超级链接
+C-x C-x			标记后，交换标记和光标的位置
+M-x overwirte-mode	切换insert模式和overwrite模式
+C-x C-q			解除buffer is read only
+C-c .			插入时间戳
+org-mode
+C-c C-p/n		跳转到上、下标签
+C-c C-f/b		跳转到上、下标签（仅限同级标签）
+C-c C-u			跳转到上级标签
+C-c C-j			切换到大纲浏览状态
+M-x org-indent-mode	切换大纲显示模式
+M-RET			插入同一级标题
+MS-RET			插入同一级TODO标题
+M-LEFT/RIGHT		将当前标题升降
+
+C-x h			选中整个缓冲区
+命令行中TAB补全，使用M-p上翻，使用M-n下翻
+M-!			临时执行一条外部命令
+C-u M-! 		临时执行一条外部命令，并输出到光标位置
+C-x d			进入Dired列表模式
+C-x C-d			获取文件列表
+C-h t			打开Emacs快捷指南
+C-h r			打开Emacs使用手册
+C-h i			在线帮助
+C-a C-k C-y             简单的复制粘贴
+(image-type-available-p 'png)
+(image-type-available-p 'jpeg)
+(image-type-available-p 'xpm)
+(image-type-available-p 'gif)
+(image-type-available-p 'tiff)
+(image-type-available-p 'xbm)
+ 测试emacs支持的图片类型
+
+M-:(iamge-type-available-p 'png)RET 查看是否支持png
+C-h v libpng-version RET
+
+M-x hexl-mode	     查看文本的十六进制编码
+M-n/p		     选择auto-complete的选项
+
+info中的快捷方式
+
+spc (空格)	        向下滚屏，至末尾后进入下一个文档节点
+backspace (退格)        和空格相反，向上滚屏，至顶端后进入上一个文档节点
+l                      回朔浏览历史，等同于浏览器中的回退。
+n  		        进入文档节点数中同级别的下一个节点 (*如果该节点包含子节点，n 会略过他们)
+p 			和 n 相反，进入文档节点数中同级别的上一个节点
+t			进入顶层结点
+u 			进入上一层节点
+b 			移动到本节点的顶端
+m 			如果节点包含目录 (往往是下一层节点的索引)。给出提示让你选择进入
+f 			如果节点包含交叉链接给出提示让你选择进入。(用 l 可以返回原节点)
+i			列出正在看的文档的所有索引标题让你选择进入
+s			对文档以你键入的词进行搜索。
+
+C和C++模式
+===指定为C++模式的方法===
+
+一般根据扩展名自动设定，不用指定，不过有时候若希望.h文件是C++模式的（缺省是C模式），在文件第一行（或其末尾）上加入
+
+// -*- C++ -*-
+===语法高亮===
+
+不是C模式专有，M-x global-font-lock-mode RET 或在.emacs中加入(global-font-lock-mode t)。
+
+===子模式===
+
+auto-state 输入时自动缩进，自动换行
+
+hungry-state Backspace时，自动删除尽可能多的空白和空行
+
+C-c C-t 同时转换(开/关)auto-state和hungry-state子模式
+
+C-c C-a 转换 auto-state 子模式
+
+C-c C-d 转换 hungry-state 子模式
+
+===编辑命令===
+
+C-c . 设置缩进风格（按TAB键可列出可用的风格，缺省的为gnu，其缩进为2个字符；linux为8个；k&r为5个，java为4个）
+
+TAB 重新缩进当前行
+
+M-/ 自动补齐（缓冲区中能找得到的串）
+
+M-; 行尾加入注释
+
+C-c C-e 扩展宏
+
+C-c C-c 注释掉整个区域
+
+C-u C-c C-c 取消注释
+
+C-c C-/ 将区域中的每一行结尾都加入一个'/'字符
+
+M-x c-beginning-of-defun
+M-x c-end-of-defun  跳到函数的开头或结尾
+
+C-c C-u    跳转到前面的一个＃ifdef 
+
+C-c C-p
+
+C-c C-n   跳转到宏的开头或结尾
+
+C-M-h   选中整个函数区域
+
+C-c C-/   在所选区域的每一行后面添加" / "
+
+C-M-p   跳转到}或）匹配的括号
+
+C-M-n   跳转到（或{匹配的括号
+
+M-x auto-insert 自动添加
+
+   #ifndef TEST_H
+   #define TEST_H
+   #endif
+
+
+
+M-@  把光标移动到单词开头，选中整个单词区域
+
+C-M-h  选中当前行
+
+
+
+C-u, C-@   回到上次标签的位置
+
+
+
+===编译和调试===
+
+M-x compile RET 编译
+
+M-x gdb RET 调试
+
+C-x ` （出错信息中）下一个错误，一个窗口显示错误信息，另一个显示源码的出错位置
+
+C-c C-c 转到出错位置
+
+启动gdb调试器后，光标在源码文件缓冲区中时：
+
+C-x SPC 在当前行设置断点
+
+C-x C-a C-s step
+
+C-x C-a C-n next
+
+C-x C-a C-t tbreak
+
+C-x C-a C-r continue
+
+Dired模式
+参考文档
+
+常用命令：
+
+m : mark
+
+u : unmark
+
+d : mark delete
+
+D : 立即删除
+
+x : 执行删除
+
+g : refresh
+
+C : copy
+
+R : move
+
++ : 创建目录
+
+Hideshow minor mode
+在编程时可以隐藏函数的实现。M-x hs-minor-mode
+
+(setq hs-minor-mode-prefix [(contrl o)]) 可以改变复杂的命令前缀.
+
+用法：
+
+`C-c @ C-h' : Hide the current block (`hs-hide-block').
+
+`C-c @ C-s' : Show the current block (`hs-show-block').
+
+`C-c @ C-c' : Either hide or show the current block (`hs-toggle-hiding')
+
+`C-c @ C-M-h' : Hide all top-level blocks (`hs-hide-all').
+
+`C-c @ C-M-s' : Show everything in the buffer (`hs-show-all').
+
+
+Linux 命令
+objdump -S -d ./hello  //反汇编,-S 为显示源码
+tar -zxvf xxx.tar.gz
+-z uncompress the archive with gzip command
+-x uncompress
+-v print information
+-f file name
+
+& 命令行末尾加上为后台执行
+
