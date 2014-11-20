@@ -2,6 +2,8 @@
 #+TITLE: Mac App Dev
 #+AUTHOR: dlut.xing@gmail.com
 #+OPTIONS: toc:2
+#+OPTIONS: ^:nil
+
 * XCode shortcuts
 
 Command + Ctrl + J  jump to definition
@@ -26,8 +28,164 @@ for (NSString s : as)
 @synthesize
 
 @property float height;
+
 @property float weight;
-= @synthesize height,weight;
+
+@synthesize height,weight;
+
+the instance variable has the same name as the property but with an
+underscore prefix (_).
+
+you can assign the variable name by synthesize
+
+eg. @synthesize enalbe = _isEnable;
+
+@property (assign, getter=isEnabled) BOOL enabled;
+// Assign new value, change name of getter method
+------
+@property = declare setter and getter;
+
+@synthesize = implement setter and getter;
+
+if is ios app or 64 mac osx app, only need @property and @synthesize.
+** file operator
+*** propertylist file
+#+begin_src Objective-c
+NSMutableArray * stocks = [[NSMutableArray alloc] init];
+[stocks writeToFile:@"/tmp/stock.plist" atomically:YES]; //write 
+
+NSArray * stockList = nil;
+stockList = [NSArray arrayWithContentsOfFile:@"/tmp/stock.plist"];
+#+end_src
+
+** block
+#+begin_src Objective-c
+int (^myBlock)(int) = ^(int num) {return 3*num;};
+
+int result = myBlock(4); //result is 12.
+#+end_src
+
+the block can used for callback
+
+eg. Notification
+
+#+begin_src Objective-c
+- (id)addObserverForName:(NSString *)name object:(id)obj queue:(NSOperationQueue *)queue usingBlock:(void (^)(NSNotification *note))block
+
+opQ = [[NSOperationQueue alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"CustomOperationCompleted"
+             object:nil queue:opQ
+        usingBlock:^(NSNotification *notif) {
+        // handle the notification
+    }];
+
+#+end_src
+
+** protocol
+#+begin_src Objective-c
+@protocol myProtocol
+@required 
+-(void)myProtocolMethord;
+@optional
+@end 
+
+@interface simpleList : NSObject
+<myProtocol,NSObject>
+@end
+
+//this interface comply with myProtocol, NSObject protocol. Inherit from NSObject.
+#+end_src
+
+** callback
++ single simple task use *Target Action* model, eg.NSTimer event.
++ single complex task use *Helper Objects* model, eg.NSUrlConnection.
++ mutiple receiver use *Notifications* model, eg.NSNotificationCenter.
+** Object
+A strong reference indicates ownership; the referring object owns the referenced object. 
+
+A weak reference implies that the referring object does not own the referenced object. 
+
+A strong reference cycle can cause your program to leak memory.
+
+*** Number
+#+begin_src Objective-c
+[NSNumber numberWithInt:4];
+[NSNumber numberWithFloat:3.4];
+#+end_src
+
+*** NSNull
+
+[NSNull null]; // nil objecet
+
+** Array
+Create Objects
+
+#+begin_src Objective-c
+NSArray *colors = [NSArray arrayWithObject:@"Orange",@"Green",nil];
+
+NSArray *numbers = [NSArray arrayWithObject:@32,@34,@35,nil];
+
+// the last element must be nil;
+NSArray *myArray = @[ @"Hello World", @67, [NSDate date] ];
+#+end_src
+
+Accessing Objects in Array
+
+#+begin_src Objective-c
+NSString *theString = [arrayTwo objectAtIndex:1]; // returns second object in array
+id theObject = myArray[1];
+
+NSArray *myArray = // get array
+for (NSString *cityName in myArray) {
+    if ([cityName isEqualToString:@"Cupertino"]) {
+        NSLog(@"We're near the mothership!");
+        break;
+    }
+}
+
+NSArray *myArray = // get array
+[myArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    if ([obj isEqual:@"Cupertino"]) {
+        NSLog(@"We're near the mothership!");
+        *stop = YES;
+    }
+}];
+
+#+end_src
+
+Verify Object Capabilities at Runtime
+
+#+begin_src Objective-c
+static int sum = 0;
+for (id item in myArray) {
+    if ([item isKindOfClass:[NSNumber class]]) {
+        int i = (int)[item intValue];
+        sum += i;
+    }
+}
+#+end_src
+
+** ARC
+*** auto release object
+#+begin_src Objective-c
+-(NSString*)description
+{
+    NSString * result = [[NSString alloc] initWithFormat:@"<%@ $%d>",[self label],[self resaleValue]];
+    [result autorelease];
+    return result;p
+}
+
+@autoreleasepool{}
+#+end_src
+*** retain
+#+begin_src Objective-c
+-(void)setHolder:(Employee* ) employee
+{
+    [holder release];
+    [employee retain];
+    holder = employee;
+}
+#+end_src
 
 * Get Started
 
