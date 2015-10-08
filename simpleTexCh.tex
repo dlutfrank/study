@@ -1,0 +1,73 @@
+\documentclass[UTF8]{ctexart}
+%ctexart ctexbook ctexrep
+% CTeX包提供了较为完善的中文支持，排版的方案（例如段落缩进）也符合中国
+% 人的习惯，但是CTeX是基于Windows设计的，在移植到Mac时会出现一些小问题。
+% 主要是字体的问题，CTeX中默认使用的SimSun等字体在Mac OS中并不存在，取
+% 而代之的是“华文宋体”等华文系列的字体。因此如果不配置，会因找不到字体
+% 而出现编译错误。另外，在Windows中常用的“隶书”和“幼圆”两种字体，在Mac
+% OS中根本不存在，也没有可以替换的字体。
+
+% 安装好字体后需要修改一下配置文件，在应用程序中打开终端，输入下列命令
+% sudo vim /usr/local/texlive/2011/texmf-dist/tex/latex/ctex/fontset/ctex-xecjk-winfonts.def
+%输入密码后将其内容替换为：
+
+%\setCJKmainfont[BoldFont={STHeiti},ItalicFont=STKaiti]
+%  {STSong}
+%\setCJKsansfont{STHeiti}
+%\setCJKmonofont{STFangsong}
+
+%\setCJKfamilyfont{zhsong}{STSong}
+%\setCJKfamilyfont{zhhei}{STHeiti}
+%\setCJKfamilyfont{zhkai}{STKaiti}
+%\setCJKfamilyfont{zhfs}{STFangsong}
+%\setCJKfamilyfont{zhli}{LiSu}
+%\setCJKfamilyfont{zhyou}{YouYuan}
+
+%\newcommand*{\songti}{\CJKfamily{zhsong}} % 宋体
+%\newcommand*{\heiti}{\CJKfamily{zhhei}}   % 黑体
+%\newcommand*{\kaishu}{\CJKfamily{zhkai}}  % 楷书
+%\newcommand*{\fangsong}{\CJKfamily{zhfs}} % 仿宋
+%\newcommand*{\lishu}{\CJKfamily{zhli}}    % 隶书
+%\newcommand*{\youyuan}{\CJKfamily{zhyou}} % 幼圆
+
+%\endinput
+%下面我们来测试配置，使用TeXShop作为IDE，代码存为UTF-8编码，以XeLaTeX编译。
+% 参考文献 http://kqwd.blog.163.com/blog/static/4122344820117725633776/
+
+% 使用普通宏包设置
+%\documentclass{article}
+%\usepackage{ctex}
+%效果和前面相同
+\begin{document}
+\title{使用中文}
+\maketitle
+第一篇中文pdf
+\begin{center}
+1. 字体示例：\\
+  \begin{tabular}{c|c}
+    \hline
+    \textbf{\TeX 命令} & \textbf{效果}\\
+    \hline
+    \verb|{\songti 宋体}| & {\songti 宋体}\\
+    \hline
+    \verb|{\heiti 黑体}| & {\heiti 黑体}\\
+    \hline
+    \verb|{\fangsong 仿宋}| & {\fangsong 仿宋}\\
+    \hline
+    \verb|{\kaishu 楷书}| & {\kaishu 楷书}\\
+    \hline
+  \end{tabular}
+\end{center}
+\begin{center}
+  2. 字号示例：\\
+  {\zihao{0}初号}
+  {\zihao{1}一号}
+  {\zihao{2}二号}
+  {\zihao{3}三号}
+  {\zihao{4}四号}
+  {\zihao{5}五号}
+  {\zihao{6}六号}
+  {\zihao{7}七号}
+  {\zihao{8}八号}
+\end{center}
+\end{document}

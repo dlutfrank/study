@@ -1,0 +1,8 @@
+#+TITLE: English
+
+* English in programming
+
+The filters may intercept interface specific events and ioctls.
+
+events 的意思是已经知道的，后面的ioctls应该与events为同类型的词，io的意
+思很明显，ctl一般都用于control的缩写，所以ioctls应该大概能猜出来。

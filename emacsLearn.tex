@@ -1,0 +1,263 @@
+% Created 2015-10-05 Mon 11:41
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{emacs learn}
+\author{shenwenxing@xiaomi.com}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.9.3f}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+\vspace*{1cm}
+\label{content-position}
+\section{To-Do 模式}
+\label{sec-1}
+\subsection{emacs 中的To-Do}
+\label{sec-1-1}
+
+
+To-do可以用来做日程安排，todo，done，top分别表示要完成的事情，已完成的事情，和优先事情。
+
+首先要修改.emacs文件
+
+  (setq todo-file-do ``\~{}/.emacs.d/todo-do'')
+
+  (setq todo-file-done ``\~{}/.emacs.d/todo-done'')
+
+  (setq todo-file-top ``\~{}/.emacs.d/todo-top'')
+
+在\~{}/.emacs.d/文件夹下建立todo-do文件
+
+在todo-do文件中建立自己的category
+M-x todo-add-category
+输入分类的名称，如work,study,travel等
+
+切换到todo模式
+M-x todo-mode进入todo mode。
+
+下面是一些快捷操作
+i    加入一个条目
+e    编辑条目
+k    删除条目
++/-  在不同category之间切换
+j    跳转到不同的category
+f    对已完成的事情进行归档，并可以进行评论。
+\subsection{org模式中的To-Do}
+\label{sec-1-2}
+\subsubsection{\textbf{TODO} 学习todo模式}
+\label{sec-1-2-1}
+
+  \texttt{SCHEDULED:} \textit{2014-10-26 Sun}
+
+在org模式下，只需要CS-RET即可添加TODO,屏幕上会显示''* TODO''，直接在后面添加内容即可。
+C-c C-s可以添加时间
+C-c C-t可以改变TODO的状态
+S-right/left也可以改变TODO的状态
+\subsection{\textbf{TODO} 学习思维导图}
+\label{sec-1-3}
+
+   \texttt{SCHEDULED:} \textit{2014-10-26 Sun}
+\subsubsection{todo中的命令}
+\label{sec-1-3-1}
+
+CS-RET 添加同级的TODO命令
+\subsubsection{\textbf{TODO} 聚会}
+\label{sec-1-3-2}
+
+    \texttt{SCHEDULED:} \textit{2014-10-26 Sun}
+    
+\section{文件操作}
+\label{sec-2}
+
+  C-x C-w 将文件另存为
+  C-x i   将文件插入光标当前位置
+  C-x C-r 以只读的方式打开文件
+  
+\section{缓冲区}
+\label{sec-3}
+
+
+  C-x s 保存所有的缓冲区C-z 将emacs挂起，然后回到shell中，并不退出
+  emacs，然后可以用\%emacs或者fg回到emacs
+  
+\section{使用帮助}
+\label{sec-4}
+
+  C-h c 快捷键： 显示快捷键的简要说明
+  C-h k 快捷键： 显示快捷家所对应的命令的详细说明
+  C-h a 关键字： 显示包含指定关键字的命令
+  C-h i      :  查看info文档
+  M-x ielm      打开ielm，输入exec-path可以查看emacs的执行m路径
+  C-h b 显示当前缓冲区所有可用的快捷键
+  C-h m 查看当前模式
+  C-h f 显示函数的功能
+  C-M v 向下滚动另一个窗口
+  C-- C-M v 向上移动另一个窗口
+\section{在emacs中运行shell命令}
+\label{sec-5}
+
+  M-! cmd RET 将结果输出到新的窗口
+  C-u M-! cmd RET 将结果输出到光标所在的位置
+  
+\section{org-mode}
+\label{sec-6}
+\subsection{表格}
+\label{sec-6-1}
+
+\begin{table}[htb]
+\caption{name-value} \label{table1}
+\begin{center}
+\begin{tabular}{lrr}
+ name  &  value  &   sd  \\
+ jack  &      1  &  2.1  \\
+ mike  &      2  &  3.2  \\
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+H$_{2}$O
+\texttt{git}
+\subsection{列表}
+\label{sec-6-2}
+
+\begin{itemize}
+\item 无序列表通常以'-','+','*'开头
+\item 有序列表通常以'1.','1)'开头
+\item 描述列表用'::'
+\end{itemize}
+:: 仅仅是一个列表描述
+\subsubsection{Lord of the Rings}
+\label{sec-6-2-1}
+
+   My favorite scenes are (in this order)
+\begin{enumerate}
+\item The attack of the Rohirrim
+\item Eowyn's fight with the witch king
+\begin{itemize}
+\item this was already my favorite scene in the book
+\item I really like Miranda Otto.
+\end{itemize}
+\item Peter Jackson being shot by Legolas
+\begin{itemize}
+\item on DVD only
+\end{itemize}
+He makes a really funny face when it happens.
+\end{enumerate}
+
+ORG-LIST-END-MARKER
+   But in the end, no individual scenes matter but the film as a whole.
+   Important actors in this film are:
+\begin{description}
+\item[Elijah Wood] He plays Frodo
+\item[Sean Austin] He plays Sam, Frodo's friend.  I still remember
+     him very well from his role as Mikey Walsh in The Goonies
+\end{description}
+ORG-LIST-END-MARKER
+\subsection{大纲之间移动}
+\label{sec-6-3}
+
+C-c C-n/p  标题移动
+C-c C-f/b  标题 同级别移动
+C-c C-u    跳到上一级标题
+C-c C-j    切换到大纲预览状态
+
+
+\begin{center}
+\begin{tabular}{ll}
+ 快捷键          &  说明                                        \\
+ M-RET           &  插入同级别标题                              \\
+ M-S-RET         &  插入同级别TODO标题                          \\
+ M-LEFT/RIGHT    &  将当前标题升级/降级                         \\
+ M-S-LEFT/RIGHT  &  将子树升级/降级                             \\
+ M-UP/DOWN       &  将子树上/下移动                             \\
+ C-c C-w         &  将子树或者区域移动到另一个标题处(跨缓冲区)  \\
+ C-c c-x b       &  在新缓冲区显示当前分支                      \\
+ C-c /           &  只列出包含搜索结果的大纲                    \\
+\end{tabular}
+\end{center}
+\subsection{嵌入数据}
+\label{sec-6-4}
+
+
+
+\begin{verbatim}
+s    #+begin_src ... #+end_src 
+e    #+begin_example ... #+end_example  : 单行的例子以冒号开头
+q    #+begin_quote ... #+end_quote      通常用于引用，与默认格式相比左右都会留出缩进
+v    #+begin_verse ... #+end_verse      默认内容不换行，需要留出空行才能换行
+c    #+begin_center ... #+end_center 
+l    #+begin_latex ... #+end_latex 
+L    #+latex: 
+h    #+begin_html ... #+end_html 
+H    #+html: 
+a    #+begin_ascii ... #+end_ascii 
+A    #+ascii: 
+i    #+index: line 
+I    #+include: line
+\end{verbatim}
+
+
+\begin{verbatim}
+##+BEGIN_SRC c -n -t -h 7 -w 40
+
+
+##+END_SRC
+c为所添加的语言
+-n 显示行号
+-t 清除格式
+-h 设置高度
+-w 设置宽度
+\end{verbatim}
+
+引用表格
+\ref{table1}
+\subsubsection{嵌入html}
+\label{sec-6-4-1}
+\subsubsection{包含文件}
+\label{sec-6-4-2}
+
+当导出文档时，你可以包含其他文件中的内容。比如，想包含你的“.emacs”文件，
+你可以用：
+
+\begin{verbatim}
+##+INCLUDE: "~/.emacs" src emacs-lisp
+\end{verbatim}
+可选的第二个第三个参数是组织方式（例如，“quote”，“example”，或者“src”），
+如果是 “src”，语言用来格式化内容。组织方式是可选的，如果不给出，文本会
+被当作 Org 模式的正常处理。用 C-c ,可以访问包含的文件。
+
+本文参考\footnote{DEFINITION NOT FOUND: fn:1 }
+
+\hyperref[content-position]{目录}
+\subsection{注脚}
+\label{sec-6-5}
+
+C-c C-x f插入注脚
+C-c C-c 在脚注和内容之间切换
+
+\end{document}

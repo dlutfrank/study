@@ -1,0 +1,24 @@
+#+TITLE: tex learn
+#+AUTHOR: dlut.xing@gmail.com
+
+* 第一个程序
+#+begin_src tex
+\documentclass{article}
+\begin{document}
+Hello, world
+%\sec.1{good job start}          
+\label{sec1}
+\section{haha}
+\textbf{good job}
+\textit{good job}
+
+it's just test
+\end{document}
+#+end_src
+
+编译: xelatex hello.tex
+
+预览: open hello.pdf
+
+C-j 回车键
+

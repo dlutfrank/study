@@ -1,0 +1,74 @@
+\documentclass{beamer}
+\usetheme{Warsaw} % 换个漂亮的式样LaTeX, beamer提供了大量现成的花哨式样，
+                  % 你只要\usetheme{你喜欢的式样},在texdoc beamer中找
+%文档C-h i然后m然后输入auctex回车
+%查看pdf文档，例如:texdoc beamer
+%文章来自http://cs2.swfc.edu.cn/~wx672/lecture_notes/linux/latex/latex_tutorial.html
+\begin{document}
+
+\title{A Simple Presentation}
+\author{A \LaTeX{}er}
+
+\begin{frame}{main page}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Hello, world!}
+  This is a "Hello, world!" example of writing presentation with \LaTeX{} beamer.
+\end{frame}
+%一套幻灯片是由若干幅画面（frame）组成的，每个 frame 可以有一个标题（frametitle）
+% 若为example则不能控制标题，若为exampleblock则可以控制标题
+\begin{frame}\frametitle{Examples}
+  \begin{example}{sim example}
+    Itemize example:
+    \begin{itemize}
+    \item Hello, world! is simple;
+    \item \LaTeX{} beamer is easy.
+    \end{itemize}
+  \end{example}
+  \begin{exampleblock}{Enumerate example:}
+    \begin{enumerate}
+    \item \LaTeX{} beamer is powerful, and
+    \item beautiful.
+    \end{enumerate}
+  \end{exampleblock}
+\end{frame}
+
+%逐列显示
+\begin{frame}\frametitle{Examples}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{example}
+        Itemize example:
+        \begin{itemize}
+        \item Hello, world! is simple;
+        \item \LaTeX{} beamer is easy.
+        \end{itemize}
+      \end{example}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{exampleblock}{Enumerate example:}
+        \begin{enumerate}
+        \item \LaTeX{} beamer is powerful, and
+        \item beautiful.
+        \end{enumerate}
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%逐行显示
+ \begin{frame}\frametitle{Examples}
+   Itemize example: \pause
+   \begin{itemize}
+   \item Hello, world! is simple;  \pause
+   \item \LaTeX{} beamer is easy. \pause
+   \end{itemize}
+   Enumerate example: \pause
+   \begin{enumerate}
+   \item \LaTeX{} beamer is powerful, and \pause
+   \item beautiful. \pause
+   \end{enumerate}
+ \end{frame}
+
+\end{document}

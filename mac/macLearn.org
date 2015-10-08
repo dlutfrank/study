@@ -9,16 +9,39 @@ Command + Shift + H 打开Home目录
 
 Command + Shfit + C 打开根目录
 
-
+** XCode 快捷键
+Command + Ctrl + up/down    在.h文件和.m文件间切换
 * bash操作
+** pbcopy
   pbcopy 剪贴板
 
   pwd | pdcopy 将当前目录发送到剪贴板
-
-  find ~/.emacs.d/ "*.el" -exec grep -H "(require 'assoc)" {} \;
-
-  找出.emacs.d目录下.el文件中所有包含指定内容的文件
   
+** awk  
+  awk '{print $2}' 输出第二列
+
+  例如批处理要修改的文件
+
+  将字符转换为参数xargs
+
+  git status| awk '/modified/ {print $2}' |xargs git reset
+
+** grep
+  grep -v '.zip'  不包含.zip
+
+  ls| grep -v '.gz' |xargs rm -rf  删除当前目录下不为.gz的文件
+
+** 正则表达式
+  $代表行尾，^代表行首
+
+** wc
+  wc -lwc //l为行数，w为字数，c为字符数
+  
+** find
+
+  find ~/.emacs.d/ "*.el" -exec grep -H "(require 'assoc)" {} \;     找出.emacs.d目录下.el文件中所有包含指定内容的文件
+ 
+  find ./ -type f -not -name '*.gz' -delete   //找出不为.gz的文件，删除，等同于ls |grep -v '.gz' |xargs rm -rf  
 
 * 开机启动
 ** Login Items
@@ -32,7 +55,6 @@ System Preferences -> Accounts -> Login Items
 比如com.sougou.SougouServices.plist
 
 一些系统级别的可以到/System/Library/StartupItems去清理
-
 
 * ios开发的开源库
 
@@ -49,3 +71,51 @@ FMDB, Core Data, SDWebImage, TMCache
 MBProgressHUD
 pop
 
+* 修改默认打开方式
+
+选择文件，显示简介，打开方式，选择目标软件，全部更改
+
+可以用快捷键commad + i来显示简介
+
+* 解决mac挂载ntfs无法写入
+#+begin_src shell
+diskutil info /Volumes/MACX | grep UUID
+
+//你的硬盘的名字替换 MACX
+echo "UUID=EC9AB3F7-9AF6-F2EC-C4EC-F22419F32464 none ntfs rw,auto,nobrowse" | sudo tee -a /etc/fstab
+//随后, 当你再重新连接 此 USB 设备的时候, 桌面上不再显示这个 USB 分区的白色盒子图标. 
+//你需要按 Command-Shift-G  前往 /Volumes 卷宗目录.
+//原因解释, OS X 默认是只识别 NTFS 并且如果显示在桌面上的时候无法激活 rw 即读写功能, 所以我们在系统文件 /etc/fstab 中加入了判断,
+// 让这个硬盘连接的时候 判断为 NTFS 读写模式,但是不显示在桌面上. 
+//如果要恢复你只需要前往 /etc/fstab 删除写入的文字即可.
+#+end_src
+
+#+begin_src shell
+echo "LABEL=Windows none ntfs rw,auto,nobrowse" >> /etc/fstab
+#+end_src
+
+
+** 使用问题
+如果没有先卸载(弹出)这个NTFS分区，就断开物理连接，那些之前写入的文件，
+之后再读取可能会有问题。在Finder中显示的修改时间不正确，而在终端中显示
+的时间是正确的；在Finder中也无法复制，显示该文件正在被使用中，而且文件
+显示灰色；文件可以在终端中复制，复制后文件在Finder中显示的也是灰色的。
+
+#+begin_src shell
+xattr -dr com.apple.FinderInfo /Volumes/Windows
+#+end_src
+将Windows替换为自己的分区即可
+** 注意
+*正常卸载－弹出NTFS分区后，在断开连接！*
+卸载：在finder中卸载或者
+#+begin_src shell
+umount /Volumes/Windows
+#+end_src
+
+
+** mounty上提供的方法
+#+begin_src shell
+        macbook:~ uwe$ sudo umount /Volumes/UNTITLED
+        macbook:~ uwe$ sudo mount -t ntfs -o rw,auto,nobrowse /dev/disk3s1 ~/ntfs-volume
+#+end_src
+ it's works
