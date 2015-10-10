@@ -1,6 +1,5 @@
 # -*-org-*-
 # +TITLE: mac learn
-
 * 常用快捷键
 
 Ctrl + Shift + Power 关闭屏幕
@@ -119,3 +118,5 @@ umount /Volumes/Windows
         macbook:~ uwe$ sudo mount -t ntfs -o rw,auto,nobrowse /dev/disk3s1 ~/ntfs-volume
 #+end_src
  it's works
+* 禁止junos Pulse自启动
+launchctl unload /Library/LaunchAgents/net.juniper.pulsetray.plist
