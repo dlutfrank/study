@@ -9,7 +9,7 @@
 #+TAGS: { 糟糕(1) 凑合(2) 不错(3) 很好(4) 极品(5) }
 #+SEQ_TODO: TODO(T) WAIT(W) | DONE(D!) CANCELED(C@) 
 #+COLUMNS: %10ITEM %10PRIORITY %15TODO %65TAGS
-#+OPTIONSa: toc:2
+#+OPTIONS: toc:2
 * emacs能做什么
 写文档(Latext)\\
 写程序(C/C++)\\
@@ -605,7 +605,7 @@ C-c C-x f插入注脚
 C-c C-c 在脚注和内容之间切换
 
 * To-Do 模式
-** emacs 中的To-Do
+** emacs 中的To-Do							:编辑器:
 
 To-do可以用来做日程安排，todo，done，top分别表示要完成的事情，已完成的事情，和优先事情。
 
@@ -633,6 +633,18 @@ k    删除条目
 +/-  在不同category之间切换
 j    跳转到不同的category
 f    对已完成的事情进行归档，并可以进行评论。
+** TODO study todo 
+   SCHEDULED: <2015-10-14 Wed 21:50>
+   - State "DONE"       from "CANCELED"   [2015-10-14 Wed 20:55]
+   - State "CANCELED"   from ""           [2015-10-14 Wed 20:54] \\
+     noting
+   - State "DONE"       from "STARTED"    [2015-10-14 Wed 20:54]
+   - State "DONE"       from "STARTED"    [2015-10-14 Wed 20:54]
+   - State "DONE"       from "STARTED"    [2015-10-14 Wed 20:54]
+   - State "DONE"       from "CANCELED"   [2015-10-14 Wed 20:54]
+   - State "CANCELED"   from "TODO"       [2015-10-14 Wed 20:53] \\
+     canceled by swx
+   - State "DONE"       from "STARTED"    [2015-10-14 Wed 20:52]
 
 ** org模式中的To-Do
 *** TODO 学习todo模式
@@ -651,8 +663,9 @@ CS-RET 添加同级的TODO命令
 
 
 
-*** TODO 聚会
+*** DONE 聚会
     SCHEDULED: <2014-10-26 Sun>
+    - State "DONE"       from "TODO"       [2015-10-14 Wed 20:55]
     
 * emacs 插件
 ** 插件安装

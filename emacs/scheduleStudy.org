@@ -1,0 +1,114 @@
+#+STARTAU: overview
+#+TITLE: 日程表
+#+SEQ_TODO: TODO(T) WAIT(W) | STARTED(S!) | DONE(D!) CANCELED(C@) 
+#+TAGS: { @office(o) @home(h) }
+#+TAGS: { study work }
+* 每日备忘录 
+** TODO 学习
++ emacs的学习
++ lisp的学习
++ SCIP学习
++ 算法学习
++ 大数据学习(论文)
++ 史记
+** TODO 黑板app
+** TODO 维护个人主页
++ 学会用emacs写blog
++ 域名
++ 服务器
+  
+** TODO 其他
++ 手指操
+
+* 周末备忘录
+** 学习
+** TODO 思维导图作业
++ 时间： 三十分钟
++ 目标：
+- 测试下身边的3-5个人，思考，方向一致的人有哪些共同点
+- 练习手指操，并且15秒内从1数到31
+- 关于"第四季度规划"和"鱼"的练习，
+   
+* DONE 专业学习[100%]
+  SCHEDULED: <2015-10-14 Wed 21:04>
+  - State "DONE"       from "TODO"       [2015-10-14 Wed 22:10]
+
+** DONE android 优化						      :study:
+   SCHEDULED: <2015-10-14 Wed>
+   - State "DONE"       from "TODO"       [2015-10-14 Wed 21:11]
+
+** DONE java 学习
+   SCHEDULED: <2015-10-14 Wed>
+   - State "DONE"       from "STARTED"    [2015-10-14 Wed 22:03]
+   - State "STARTED"    from "CANCELED"   [2015-10-14 Wed 21:12]
+   - State "CANCELED"   from "WAIT"       [2015-10-14 Wed 21:11] \\
+     canceled by swx
+
+** DONE [#A] todo学习
+   SCHEDULED: <2015-10-14 Wed 21:14>
+   - State "DONE"       from "STARTED"    [2015-10-14 Wed 22:03]
+   - State "STARTED"    from "TODO"       [2015-10-14 Wed 21:16]
+定义seq_todo，来决定该文件的状态，也可以用TODO来定义，效果是一样的，如
+文件开始的内容，括号内是快捷键，!代表会自动添加上时间记录，@代表要注明
+原因，|表示隔开不同的分类。
+
+可以将todo状态配置在.emacs文件中
+
+#+begin_src elisp
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "|" "DONE(d)")
+        (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
+        (sequence "|" "CANCELED(c)")))
+#+end_src
+
+** 优先级						      :@office:study:
+C-c , 可以设定todo优先级,S-up/down可以更改优先级
+
+** 进度记录
+
+最基本的就是记录当一个Item被标记为DONE时的时间戳了，另外，在一
+个Item完成后，可能会想要写点心得或者备注什么的，可以用如下配置实现
+#+begin_src elisp
+(setq org-log-done 'time)
+(setq org-log-done 'note)
+#+end_src
+
+** 拆分项目
+在TODO项后加上[%]或者[/]就可以了
+
+C-c C-c 改变checkbox的状态
+
+MS-RET 增加一个checkbox item
+
+** DONE 测试进度[100%]
+   - State "DONE"       from "TODO"       [2015-10-14 Wed 22:09]
+*** DONE 测试a
+    - State "DONE"       from "TODO"       [2015-10-14 Wed 21:34]
+*** CANCELED 测试b
+    - State "CANCELED"   from "TODO"       [2015-10-14 Wed 21:34] \\
+      test cancleed
+*** DONE 测试c
+    - State "DONE"       from "TODO"       [2015-10-14 Wed 22:09]
+*** DONE 测试d
+    - State "DONE"       from "TODO"       [2015-10-14 Wed 22:09]
+** DONE 测试checkbox item [4/4]
+   - State "DONE"       from "TODO"       [2015-10-14 Wed 22:10]
+- [X] test a
+- [X] test b
+- [X] test c
+- [X] text d
+
+** tags								      :study:
+   DEADLINE: <2015-10-14 Wed 23:00>
+C-c C-q插入tags可以定义在文件开始
+
+** 时间
+   DEADLINE: <2015-11-26 Thu> SCHEDULED: <2015-10-14 Wed 21:47>
+
+C-c C-s增加schedule时间
+
+C-c C-d增加deadline时间
+
+C-!增加未激活的时间
+
+** 解决方案						      :@office:study:
