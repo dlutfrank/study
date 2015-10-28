@@ -8,3 +8,4 @@ private/
 *.html
 *.DS_Store
 *.gz
+latex/
